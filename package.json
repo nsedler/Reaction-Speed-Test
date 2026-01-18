@@ -18,7 +18,8 @@
     "pg": "^8.17.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "supabase": "^2.72.8"
+    "supabase": "^2.72.8",
+    "vercel": "^50.4.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
