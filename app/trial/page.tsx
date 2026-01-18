@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { PrismaClient } from '@/app/generated/prisma';
 
 interface Trial {
     trial: number;
@@ -38,8 +39,8 @@ export default function Trial() {
 
         // testing purposes only
         for (let j = 1000; j <= 5000; j += 500) {
-                intervalTimingsRef.current.push(j);
-            }
+            intervalTimingsRef.current.push(j);
+        }
 
         let sum = 0;
         intervalTimingsRef.current.forEach(t => {
@@ -52,7 +53,7 @@ export default function Trial() {
         return () => clearTimeout(timerRef.current);
     }, []); // runs on mount []
 
-    function handleReactionClick() {
+    async function handleReactionClick() {
         if (!showBox) return;
 
         setShowBox(false);
@@ -60,10 +61,22 @@ export default function Trial() {
         const reactionTime =
             performance.now() - objectStartTimeRef.current;
 
-        trialArrRef.current.push({
+
+        let trial: Trial = {
             trial: trialNumRef.current,
             delay: randomTimeMsRef.current,
-            reactionTime,
+            reactionTime
+        }
+
+        trialArrRef.current.push(trial);
+
+        await fetch("/api/trials", {
+            method: "POST",
+            body: JSON.stringify({
+                trialNumber: trialNumRef.current,
+                delayMs: randomTimeMsRef.current,
+                reactionTimeMs: reactionTime,
+            }),
         });
 
         if (intervalTimingsRef.current.length === 0) {

@@ -1,12 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../components/Button";
 
 export default function Home() {
   const [understood, setUnderstood] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    
+  }, []) 
 
   const handleSubmit = () => {
     if (!understood) return;

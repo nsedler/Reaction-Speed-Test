@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Trial {
+  id             Int @id @default(autoincrement())
+  trialNumber    Int
+  delayMs        Int
+  reactionTimeMs Int
+}
