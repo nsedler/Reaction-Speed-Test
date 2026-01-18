@@ -10,7 +10,7 @@ export default function Home() {
 
   const handleSubmit = () => {
     if (!understood) return;
-    router.push("/about");
+    router.push("/trial");
   };
 
   return (

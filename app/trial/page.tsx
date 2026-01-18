@@ -9,7 +9,7 @@ interface Trial {
     reactionTime: number;
 }
 
-export default function About() {
+export default function Trial() {
     const [showBox, setShowBox] = useState<boolean>(false);
     const router = useRouter();
 
@@ -28,10 +28,25 @@ export default function About() {
         trialNumRef.current = 0;
         intervalTimingsRef.current = [];
 
-        // create timing intervals 
-        for (let i = 1000; i <= 5000; i += 1000) {
-            intervalTimingsRef.current.push(i);
-        }
+        // create timing intervals
+        // 1 to 15 secs half ms intervals
+        // for (let i = 0; i < 3; i++) {
+        //     for (let j = 1000; j <= 15000; j += 500) {
+        //         intervalTimingsRef.current.push(j);
+        //     }
+        // }
+
+        // testing purposes only
+        for (let j = 1000; j <= 5000; j += 500) {
+                intervalTimingsRef.current.push(j);
+            }
+
+        let sum = 0;
+        intervalTimingsRef.current.forEach(t => {
+            sum += t;
+        });
+
+        console.log('total ms %d', sum);
 
         startNextTrial();
         return () => clearTimeout(timerRef.current);
@@ -52,6 +67,7 @@ export default function About() {
         });
 
         if (intervalTimingsRef.current.length === 0) {
+            console.log(trialArrRef.current);
             router.push("/trialEnd");
             return;
         }
