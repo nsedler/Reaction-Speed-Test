@@ -123,11 +123,6 @@ export default function Trial() {
                     <div className="h-40 w-40 border border-dashed border-stone-300" />
                 )}
             </div>
-
-            {/* Instruction */}
-            <p className="mt-8 text-xs text-stone-400">
-                Click the box as soon as it appears
-            </p>
         </div>
     );
 }

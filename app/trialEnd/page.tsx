@@ -20,13 +20,6 @@ export default function TrialEnd() {
                 <div className="mb-6 text-xs text-stone-400">
                     You may now safely close this page
                 </div>
-
-                <button
-                    onClick={() => router.push("/")}
-                    className="w-full rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-stone-800"
-                >
-                    Run Again
-                </button>
             </div>
         </div>
     );
