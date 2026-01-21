@@ -1,10 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 export default function TrialEnd() {
-    const router = useRouter();
-
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-stone-50 px-4 text-center">
             <div className="max-w-md rounded-2xl bg-white p-8 shadow-lg">

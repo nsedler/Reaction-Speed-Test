@@ -7,8 +7,15 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+   id           Int @id @default(autoincrement())
+   trials       Trial[]
+}
+
 model Trial {
   id             Int @id @default(autoincrement())
+  user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId         Int 
   trialNumber    Int
   delayMs        Int
   reactionTimeMs Int
