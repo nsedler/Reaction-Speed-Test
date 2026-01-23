@@ -93,8 +93,13 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id'
+};
+
 exports.Prisma.TrialScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   trialNumber: 'trialNumber',
   delayMs: 'delayMs',
   reactionTimeMs: 'reactionTimeMs'
@@ -107,6 +112,7 @@ exports.Prisma.SortOrder = {
 
 
 exports.Prisma.ModelName = {
+  User: 'User',
   Trial: 'Trial'
 };
 /**
@@ -117,10 +123,10 @@ const config = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Trial {\n  id             Int @id @default(autoincrement())\n  trialNumber    Int\n  delayMs        Int\n  reactionTimeMs Int\n}\n"
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id     Int     @id @default(autoincrement())\n  trials Trial[]\n}\n\nmodel Trial {\n  id             Int  @id @default(autoincrement())\n  user           User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)\n  userId         Int\n  trialNumber    Int\n  delayMs        Int\n  reactionTimeMs Int\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Trial\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"trialNumber\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"delayMs\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reactionTimeMs\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"trials\",\"kind\":\"object\",\"type\":\"Trial\",\"relationName\":\"TrialToUser\"}],\"dbName\":null},\"Trial\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TrialToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"trialNumber\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"delayMs\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reactionTimeMs\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
       getRuntime: async () => require('./query_compiler_bg.js'),

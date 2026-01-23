@@ -1,20 +1,25 @@
-"use client";
-
-import { useState, useEffect } from "react";
+'use client'
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Button from "../components/Button";
+import Button from "@/components/Button";
 
 export default function Home() {
   const [understood, setUnderstood] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    
-  }, []) 
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!understood) return;
-    router.push("/trial");
+
+    // 1. Create a new user
+    const res = await fetch("/api/users", {
+      method: "POST",
+    });
+
+    const data = await res.json(); // { id: 1 }
+    const userId = data.id;
+
+    // 2. Navigate to the trial page with userId
+    router.push(`/trial?userId=${userId}`);
   };
 
   return (
@@ -41,13 +46,11 @@ export default function Home() {
           <span>I understand</span>
         </label>
 
-        <Button
-          onClick={handleSubmit}
-          disabled={!understood}
-        >
+        <Button onClick={handleSubmit} disabled={!understood}>
           Start Test
         </Button>
       </main>
     </div>
   );
 }
+
