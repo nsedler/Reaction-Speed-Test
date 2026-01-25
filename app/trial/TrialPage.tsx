@@ -45,8 +45,10 @@ export default function TrialClient() {
     intervalTimingsRef.current = [];
 
     // 1–5s in 500ms steps
-    for (let ms = 1000; ms <= 5000; ms += 500) {
-      intervalTimingsRef.current.push(ms);
+    for (let i = 0; i < 3; i++) {
+        for (let ms = 1000; ms <= 15000; ms += 500) {
+            intervalTimingsRef.current.push(ms);
+        }
     }
 
     startNextTrial();
@@ -121,9 +123,6 @@ export default function TrialClient() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-stone-50 text-stone-800">
-      <p className="mb-8 text-sm tracking-wide text-stone-500">
-        Trial {trialNumRef.current + 1}
-      </p>
 
       <div
         onClick={handleReactionClick}

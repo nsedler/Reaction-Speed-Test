@@ -33,7 +33,8 @@ export default function Home() {
           This is a reaction speed test. Once you hit start, an object will
           appear after a random delay between <strong>1 and 15 seconds</strong>.
           Click the object as quickly as you can. The object will appear multiple
-          times—try your best until the completion screen appears.
+          times—try your best until the completion screen appears. This test takes
+          approximately <strong>12 minutes.</strong>
         </p>
 
         <label className="mb-6 flex cursor-pointer items-center gap-2 text-sm text-stone-700">
